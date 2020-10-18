@@ -1,0 +1,315 @@
+<template>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">Список учащихся
+                    <select v-on:click.left="filter_student" v-model.trim="filtr_klass">
+                        <option v-for="fklass in url_klass" v-bind:value="fklass.id">{{ fklass.id}}</option>
+                    </select>
+                        <label for="recipient-name" class="col-form-label">Предмет</label>
+                    <select v-on:click.left="filter_student" v-model.trim="filtr_subject">
+                        <option v-for="f_subject in url_subject"
+                            v-bind:value="f_subject.name">{{ f_subject.name}}</option>
+                    </select>
+                     <button v-on:click="update" type="button" class="btn btn-primary"  title="Сбросить фильтр">Сброс</button>
+                    </div>
+    
+                    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalLabel">Редактируем </h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+    
+                                        <label for="recipient-name" class="col-form-label">Фамилия</label>
+                                        <input type="text" placeholder="Фамилия И.О." class="form-control" id="recipient-name" v-model.trim="fullname" />
+                                        <label for="recipient-name" class="col-form-label">Класс</label>
+                                        <label>{{editclass}}</label>
+    
+                                        <select v-model.trim="klassform">
+                                            <option v-for="klass in url_klass" v-bind:value="klass.id">{{ klass.id}}</option>
+                                                                                    </select>
+                                        <label for="recipient-name" class="col-form-label">Предмет</label>
+                                        <select v-model.trim="subject">
+                                        <option
+                                                                                        v-for="v_subject in url_subject"
+                                                                                        v-bind:value="v_subject.name"
+                                                                                      >{{ v_subject.name}}</option>
+                                                                                    </select>
+    
+                                        <label for="recipient-name" class="col-form-label"></label><label>{{editsubject}}</label>
+    
+    
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button @click="clearform" type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                                    <button @click="save_student" type="button" class="btn btn-primary" data-dismiss="modal">Сохранить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+    
+    
+    
+    
+    
+    
+                    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Добавление учеников</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                                                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <label for="recipient-name" class="col-form-label">Фамилия</label>
+                                        <input type="text" placeholder="Фамилия И.О." class="form-control" id="recipient-name" v-model.trim="fullname" />
+                                        <label for="recipient-name" class="col-form-label">Класс</label>
+    
+                                        <select v-model.trim="klassform">
+                                                <option v-for="klass in url_klass" v-bind:value="klass.id">{{ klass.id}}</option>
+                                                                                    </select>
+                                        <label for="recipient-name" class="col-form-label">Предмет</label>
+                                        <select v-model.trim="subject">
+                                                 <option
+                                                                                        v-for="v_subject in url_subject"
+                                                                                        v-bind:value="v_subject.name"
+                                                                                      >{{ v_subject.name}}</option>
+                                                                                    </select>
+    
+                                        <label for="recipient-name" class="col-form-label">Предмет</label>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button @click="clearform" type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                                    <button @click="add_form" type="button" class="btn btn-primary" data-dismiss="modal">Сохранить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="card-body">
+                        <div class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">№</th>
+                                        <th scope="col">Фамилия И.О.</th>
+                                        <th scope="col">Класс</th>
+                                        <th scope="col">Предмет</th>
+    
+                                        <th scope="col">Логин</th>
+                                        <th scope="col">Пароль</th>
+                                        <th scope="col">%</th>
+                                        <th scope="col">Дата</th>
+    
+                                        <th scope="col">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal" title="Добавить ученика">+</button>
+                                        </th>
+                                        <tr v-for="(url, stroka) in url_user">
+                                            <td>{{stroka+1}}</td>
+    
+                                            <td>{{url.name}}</td>
+                                            <td>{{url.class}}</td>
+                                            <td>{{url.subject}}</td>
+    
+                                            <td>{{url.email}}</td>
+                                            <td>{{url.password_str}}</td>
+                                            <td>{{url.perfomed}}</td>
+                                            <td>{{new Date(url.data_reg).toLocaleDateString()}}</td>
+                                            <td>
+    
+                                                <button @click="edit_student(url.id)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal" data-whatever="@mdo" title="Редактировать">☜</button>
+                                            </td>
+    
+                                        </tr>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                            <button v-on:click="createPDF" type="button" class="btn btn-primary"  title="Сбросить фильтр">PDF</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+
+import axios from "axios";
+
+
+export default {
+    data: function() {
+        return {
+            fullname: "",
+            editclass: "",
+            editsubject: "",
+            subject: [],
+            klassform: [],
+            url_year: "",
+            url_user: [],
+            url_klass: [],
+            url_subject: [],
+            url_user: "",
+            filtr_subject: "",
+            filtr_klass:""
+        };
+    },
+    mounted() {
+        this.update();
+        console.log("Component mounted.");
+    },
+    methods: {
+        update: function() {
+            //обновляем форму открываем
+
+            axios.post("/teachershow").then(response => {
+                // при get
+
+                this.url_year = response.data.url_year;
+                this.url_klass = response.data.url_klass;
+                this.url_subject = response.data.url_subject;
+                this.url_school = response.data.url_school;
+                this.url_user = response.data.url_user;
+
+                //console.log(this.url_school);
+            });
+        },
+
+        add_form: function() {
+            // добавляем участников соревнований
+            const data_form = {
+                fullname: this.fullname,
+                klassform: this.klassform,
+                subject: this.subject
+            };
+
+            axios.post("/teacheradd", data_form).then(response => {
+                this.update();
+                //this.url_user = response.data.url_user;
+                this.url_year = response.data.url_year;
+                //this.url_categorie[]="";
+                //console.log(response.data.url_year);
+                this.clearform();
+            });
+        },
+        edit_student: function(id) {
+            //вызываем строку редактирования в форму
+
+            const data_id = {
+                id: id //id строки
+            };
+            axios.post("/editstudent", data_id).then(response => {
+                //То что вернется
+
+                //this.probname = response.data.name;
+                // this.msg = response.data.dob;
+                this.user_id = response.data.url_user.id;
+                this.fullname = response.data.url_user.name;
+                this.editclass = response.data.url_user.class;
+                this.editsubject = response.data.url_user.subject;
+                //console.log(this.editsubject);
+                //console.log(response.data);
+                //this.url_categorie[]="";
+            });
+        },
+        save_student: function() {
+            const data_id = {
+                user_id: this.user_id,//id строки
+                fullname: this.fullname,
+                klassform: this.klassform,
+                subject: this.subject
+            };
+            axios.post("/savestudent", data_id).then(response => {
+                this.update();
+                //this.url_user = response.data.url_user;
+                this.url_year = response.data.url_year;
+                //this.url_categorie[]="";
+                //console.log(response.data.url_year);
+                this.clearform();
+            });
+            console.log("save");
+            console.log(this.subject);
+            this.clearform();
+
+        },
+        filter_student: function() {
+            const data_id = {
+                klass: this.filtr_klass,
+                subject: this.filtr_subject,
+            };
+            axios.post("/filterstudent", data_id).then(response => {
+                this.url_user = response.data.url_user;
+
+            });
+            //console.log(this.filtr_klass);
+
+
+        },
+        clearform: function() {
+            // очищаем заполненные данные формы
+            this.fullname = "";
+            this.subject = [];
+            this.klassform = [];
+
+        },
+        createPDF: function() {    
+
+            // распечатать pdf
+           // console.log("uuuuuu");
+            //const doc =new jspdf();
+           // const doc =new pdfMake();
+           // doc.text("fdsa",15,15);
+           // doc.save("pdf.pdf");
+
+       // docDefinition.content[0].table.body.push(this.columns);       
+       // var docDefinition = {
+       // content: [
+       //     {
+          //      table: {
+          //          headerRows: 1,
+           //         widths: [ '*', 'auto', 100, '*' ],
+
+           //         body: []
+            //    }
+           // }
+       // ]
+       // };
+
+
+
+       
+
+        //pdfMake.createPdf(docDefinition).download('PO.pdf');//open
+       /* axios({
+  url: 'http://127.0.0.1:3011/home',
+  method: 'GET',
+  responseType: 'blob', // important
+}).then((response) => {
+  const url = window.URL.createObjectURL(new Blob([response.data]));
+  const link = document.createElement('a');
+  link.href = url;
+  link.setAttribute('download', 'file.pdf');
+  document.body.appendChild(link);
+  link.click();
+});*/
+
+
+        }
+    }
+};
+</script>
