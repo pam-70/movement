@@ -1,0 +1,139 @@
+Это пароль кудато beK-w9K-37x-dKL
+sudo docker-compose up -d   запускаем докер
+sudo docker-compose stop    останавливаем
+------------------------------------------------
+sudo apt update && sudo apt-get upgrade
+
+получилось
+-------------------------------------------
+sudo docker-compose up -d
+php artisan ui vue --auth
+sudo docker-compose exec myapp npm install
+sudo docker-compose exec myapp npm fund
+sudo docker-compose exec myapp npm run dev
+------------------------------------------
+
+
+
+//////////////////////
+устанавливаем LARAVEL
+$ mkdir ~/myapp && cd ~/myapp
+$ curl -LO https://raw.githubusercontent.com/bitnami/bitnami-docker-laravel/master/docker-compose.yml
+меняем порты для базы и работы
+$ docker-compose up
+
+
+sudo apt install composer
+composer global require laravel/installer
+(sudo docker-compose exec myapp composer require laravel/ui)
+composer require laravel/ui:^2.4
+sudo docker-compose exec myapp composer require laravel/ui  "^1.2" --dev
+
+sudo docker-compose exec myapp composer require laravel/ui --dev
+php artisan ui vue --auth
+node -v 
+npm -v 
+sudo apt install nodejs
+sudo apt install npm
+npm install
+npm run dev  запускаем для пересборки
+npm run watch  or npm run watch-poll  Для атоматической персборки
+npm install vuelidate --save    установка валидатора
+или npm run development
+
+
+sudo docker-compose up -d
+npm run watch
+--------------------------------------------
+сама работа
+php artisan make:migration create_users_table
+sudo docker-compose exec myapp php artisan migrate    выполнитьмиграцию
+sudo docker-compose exec myapp php artisan migrate:rollback  последние
+sudo docker-compose exec myapp php artisan migrate:reset 
+sudo docker-compose exec myapp php artisan migrate:refresh
+sudo docker-compose exec myapp php artisan make:model Degree   создание модели
+php artisan make:controller PhotoController --resource   создание ресурсного контроллера
+php artisan make:controller PhotoController
+
+
+
+sudo docker-compose exec myapp nmp install
+sudo docker-compose exec myapp php artisan ui vue --auth
+-------------------------------------------
+sudo docker container ls -a
+sudo docker ps
+
+sudo docker run -it
+
+0720941e029d 
+2e6a9b3eb6ec 
+-------------------------------------------
+npm install pdfmake --save-dev
+ниже нет русского
+npm install --save jspdf
+-------------------------------------------
+форматировщик vetur для vue
+
+Split HTML Attributes (Vue, React, Angular)
+Prettier - Code formatter
+Prettier - Code formatter
+prettier.prettier-vscode
+
+-------------------------------------------
+
+В модальном окне для карате разметка
+
+
+Ubuntu — Ctrl + Shift + I
+
+Свернуть внутреннюю область возле курсора вам помогут следующие сочетания клавиш:
+
+Windows /Ubuntu — Ctrl + Shift + [
+Ubuntu — Ctrl+ d  выделить слово
+Ubuntu — Ctrl + g переход к строке
+Ubuntu — Ctrl + Shift + d  дублирование строки
+Ubuntu — Ctrl + x   удаление строки
+Ubuntu — Ctrl + Alt + стрелка вверх / вниз   добавление курсора
+Ubuntu — Shift + Alt   выделение столбца
+
+Windows — Shift + Alt + стрелка вверх / вниз Копирование строки
+===================================================
+видео
+https://www.youtube.com/watch?v=LO_p_3vukLE
+загрузка файлов
+https://youtu.be/J-J-EJ9CXNw
+передача данных в вью
+https://youtu.be/NNdTljRzPqE
+
+https://youtu.be/UAxNcJprLA0
+===================================
+docker-machine start default
+docker-machine ls
+---------------------------------------------------
+sudo apt update
+sudo apt install mysql-server
+sudo mysql_secure_installation
+1
+12345678
+sudo mysqlSELECT user,authentication_string,plugin,host FROM mysql.user;
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '12345678';
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '17My#pam20';(mysql -u root -p)
+FLUSH PRIVILEGES;
+SELECT user,authentication_string,plugin,host FROM mysql.user;
+
+CREATE USER 'sammy'@'localhost' IDENTIFIED BY 'password';
+ CREATE USER 'lar'@'localhost' IDENTIFIED BY '#pamServ20';
+
+
+
+systemctl status mysql.service
+-------------------------------------
+sudo mysql
+mysql -u lar -p
+SHOW DATABASES;
+CREATE DATABASE testdb;
+
+
+
+
